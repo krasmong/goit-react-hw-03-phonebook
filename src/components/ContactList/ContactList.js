@@ -4,7 +4,7 @@ import s from './ContactList.module.css';
 // import s from '../ContactList/ContactList.module.css';
 
 const ContactList = ({ contacts, onDeleteContact }) => {
-  console.log(contacts);
+  // console.log(contacts);
 
   return (
     <>

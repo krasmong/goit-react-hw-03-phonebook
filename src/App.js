@@ -35,6 +35,30 @@ class App extends Component {
     filter: '',
   };
 
+  componentDidMount() {
+    console.log('App componentDidMount');
+
+    const getContacts = localStorage.getItem('contacts');
+    console.log(getContacts);
+
+    const parsedContacts = JSON.parse(getContacts);
+    console.log(parsedContacts);
+
+    if (parsedContacts) {
+      this.setState({ contacts: parsedContacts });
+    }
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    console.log('App componentDidUpdate');
+
+    if (this.state.contacts !== prevState.contacts) {
+      console.log('Обновилось поле contacts, записываю contacts в хранилище ');
+
+      localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
+    }
+  }
+
   formSubmitHandler = data => {
     const myContacts = {
       id: uuidv4(),
@@ -58,7 +82,7 @@ class App extends Component {
     } else {
       this.setState(prevState => {
         return {
-          contacts: [...prevState.contacts, myContacts],
+          contacts: [myContacts, ...prevState.contacts],
         };
       });
     }
